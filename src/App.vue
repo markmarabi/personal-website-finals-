@@ -1,5 +1,4 @@
 <script setup>
-import ContactForm from './components/ContactForm.vue'
 </script>
 
 <template>
@@ -38,11 +37,40 @@ import ContactForm from './components/ContactForm.vue'
         </li>
       </ul>
 
-      <!-- 👇 Add your contact form here -->
-      <ContactForm />
+      <!-- 📨 Connect with Me Form -->
+      <section style="margin-top: 2rem; text-align: center;">
+        <h2>Connect with Me</h2>
+        <form>
+          <label>Email:</label><br />
+          <input
+            type="email"
+            placeholder="Enter your email"
+            style="width: 250px; padding: 8px; margin-top: 5px;"
+          /><br /><br />
+          <label>Message:</label><br />
+          <textarea
+            placeholder="Write your message here"
+            rows="4"
+            style="width: 250px; padding: 8px; margin-top: 5px;"
+          ></textarea><br /><br />
+          <button
+            type="submit"
+            style="
+              padding: 8px 16px;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+            "
+          >
+            Send Message
+          </button>
+        </form>
+      </section>
     </main>
 
-    <footer>
+    <footer style="margin-top: 3rem;">
       <p>&copy; 2025 Mark Lyster Marabi</p>
     </footer>
   </div>
@@ -53,3 +81,40 @@ export default {
   name: 'App'
 }
 </script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #fafafa;
+  color: #333;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+}
+
+main {
+  margin: 2rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 0.5rem 0;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
