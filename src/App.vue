@@ -36,41 +36,26 @@
           </a>
         </li>
       </ul>
-
-      <!-- 📨 Connect with Me Form -->
-      <section style="margin-top: 2rem; text-align: center;">
-        <h2>Connect with Me</h2>
-        <form>
-          <label>Email:</label><br />
-          <input
-            type="email"
-            placeholder="Enter your email"
-            style="width: 250px; padding: 8px; margin-top: 5px;"
-          /><br /><br />
-          <label>Message:</label><br />
-          <textarea
-            placeholder="Write your message here"
-            rows="4"
-            style="width: 250px; padding: 8px; margin-top: 5px;"
-          ></textarea><br /><br />
-          <button
-            type="submit"
-            style="
-              padding: 8px 16px;
-              background-color: #007bff;
-              color: white;
-              border: none;
-              cursor: pointer;
-              border-radius: 4px;
-            "
-          >
-            Send Message
-          </button>
-        </form>
-      </section>
     </main>
 
-    <footer style="margin-top: 3rem;">
+    <section id="contact" style="margin-top: 3rem;">
+      <h2>Connect with Me</h2>
+      <form id="contactForm" @submit.prevent="submitForm">
+        <label>Email:</label>
+        <input v-model="email" type="email" placeholder="Enter your email" required />
+
+        <label>Message:</label>
+        <textarea v-model="message" rows="4" placeholder="Type your message..." required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <p v-if="successMessage" style="color: green; margin-top: 10px;">
+        {{ successMessage }}
+      </p>
+    </section>
+
+    <footer>
       <p>&copy; 2025 Mark Lyster Marabi</p>
     </footer>
   </div>
@@ -78,43 +63,53 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      email: '',
+      message: '',
+      successMessage: ''
+    }
+  },
+  methods: {
+    submitForm() {
+      // For now, just show confirmation (you can connect Supabase later)
+      this.successMessage = `Thank you! Your message has been sent.`;
+      this.email = '';
+      this.message = '';
+    }
+  }
 }
 </script>
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #fafafa;
-  color: #333;
+<style scoped>
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
-header {
-  background-color: #007bff;
-  color: white;
+input, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+button {
+  width: 100%;
   padding: 1rem;
+  background-color: #ff3333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
 }
-
-main {
-  margin: 2rem;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-ul li {
-  margin: 0.5rem 0;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+button:hover {
+  background-color: #cc0000;
 }
 </style>
