@@ -1,134 +1,128 @@
 <template>
-  <div class="contact">
-    <h2>Connect with Me</h2>
-    <form @submit.prevent="sendMessage">
-      <label>Email Address</label>
-      <input 
-        type="email" 
-        v-model="email" 
-        placeholder="Enter your email" 
-        required
-      />
+  <section id="contact">
+    <div class="video-background">
+      <video autoplay muted loop>
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+    </div>
 
-      <label>Message</label>
-      <textarea 
-        v-model="message" 
-        placeholder="Write your message here" 
-        required
-      ></textarea>
+    <div class="contact-content">
+      <h2 class="title">Connect with Me</h2>
+      <p class="section_text_p1">Leave your email and message below 👇</p>
 
-      <button type="submit">Send Message</button>
-    </form>
+      <form @submit.prevent="submitMessage" class="contact-form">
+        <input
+          type="email"
+          v-model="email"
+          placeholder="Your email address"
+          required
+        />
+        <textarea
+          v-model="message"
+          placeholder="Your message..."
+          required
+        ></textarea>
+        <button type="submit" class="btn btn-color-1">Send Message</button>
+      </form>
 
-    <p v-if="successMessage" class="success">{{ successMessage }}</p>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="status" class="status">{{ status }}</p>
 
-    <div v-if="messages.length" class="inbox">
-      <h3>Recent Messages</h3>
-      <div v-for="m in messages" :key="m.id" class="message-box">
-        <p><strong>{{ m.email }}</strong></p>
-        <p>{{ m.message }}</p>
-        <small>{{ new Date(m.created_at).toLocaleString() }}</small>
+      <div v-if="messages.length > 0" class="messages-container">
+        <h3>Guestbook Messages 💬</h3>
+        <ul>
+          <li v-for="msg in messages" :key="msg.id">
+            <strong>{{ msg.email }}</strong>: {{ msg.message }}
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { supabase } from '../supabase'
+import { supabase } from '../supabase.js'
 
 const email = ref('')
 const message = ref('')
+const status = ref('')
 const messages = ref([])
-const successMessage = ref('')
-const errorMessage = ref('')
 
-async function loadMessages() {
+const fetchMessages = async () => {
   const { data, error } = await supabase
     .from('messages')
     .select('*')
     .order('created_at', { ascending: false })
+
   if (!error) messages.value = data
 }
 
-async function sendMessage() {
-  successMessage.value = ''
-  errorMessage.value = ''
-  const { error } = await supabase
-    .from('messages')
-    .insert([{ email: email.value, message: message.value }])
+const submitMessage = async () => {
+  if (!email.value || !message.value) return
+
+  const { error } = await supabase.from('messages').insert([
+    {
+      email: email.value,
+      message: message.value
+    }
+  ])
+
   if (error) {
-    errorMessage.value = 'Failed to send message. Please try again.'
+    status.value = '❌ Something went wrong. Please try again.'
   } else {
-    successMessage.value = 'Your message has been sent successfully!'
+    status.value = '✅ Message sent successfully!'
     email.value = ''
     message.value = ''
-    loadMessages()
+    fetchMessages()
   }
 }
 
-onMounted(loadMessages)
+onMounted(fetchMessages)
 </script>
 
 <style scoped>
-.contact {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-  text-align: left;
+.contact-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
 }
 
-form {
+.contact-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
-}
-
-label {
-  font-weight: bold;
-  color: #333;
-}
-
-input, textarea {
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  resize: vertical;
-}
-
-button {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background: #2563eb;
-}
-
-.success {
-  color: green;
-  margin-top: 1rem;
-}
-
-.error {
-  color: red;
-  margin-top: 1rem;
-}
-
-.inbox {
   margin-top: 2rem;
 }
 
-.message-box {
-  border-top: 1px solid #ddd;
-  padding-top: 0.5rem;
-  margin-top: 0.5rem;
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  margin-top: 1rem;
+}
+
+.status {
+  margin-top: 1rem;
+  color: #ffd700;
+}
+
+.messages-container {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 </style>

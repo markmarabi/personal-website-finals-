@@ -1,3 +1,7 @@
+<script setup>
+import ContactForm from './components/ContactForm.vue'
+</script>
+
 <template>
   <div id="app">
     <header>
@@ -33,6 +37,9 @@
           </a>
         </li>
       </ul>
+
+      <!-- 👇 Add your contact form here -->
+      <ContactForm />
     </main>
 
     <footer>
