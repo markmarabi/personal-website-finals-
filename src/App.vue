@@ -1,15 +1,22 @@
-<script setup>
-import { ref } from 'vue'
-
-const email = ref('')
-const message = ref('')
-const successMessage = ref('')
-
-function submitForm() {
-  successMessage.value = 'Thank you! Your message has been sent.'
-  email.value = ''
-  message.value = ''
-}
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      email: '',
+      message: '',
+      successMessage: ''
+    };
+  },
+  methods: {
+    submitForm() {
+      // For now, just show confirmation (you can connect Supabase later)
+      this.successMessage = `Thank you! Your message has been sent.`;
+      this.email = '';
+      this.message = '';
+    }
+  }
+};
 </script>
 
 <template>
@@ -51,7 +58,7 @@ function submitForm() {
 
     <section id="contact" style="margin-top: 3rem;">
       <h2>Connect with Me</h2>
-      <form @submit.prevent="submitForm">
+      <form id="contactForm" @submit.prevent="submitForm">
         <label>Email:</label>
         <input v-model="email" type="email" placeholder="Enter your email" required />
 
@@ -73,15 +80,52 @@ function submitForm() {
 </template>
 
 <style scoped>
+#app {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #ff3333;
+  color: white;
+  padding: 1rem;
+}
+
+main {
+  padding: 2rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+a {
+  color: #ff3333;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 form {
   max-width: 500px;
   margin: 2rem auto;
   background: white;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-input, textarea {
+
+input,
+textarea {
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 1rem;
@@ -89,6 +133,7 @@ input, textarea {
   border-radius: 5px;
   font-size: 1rem;
 }
+
 button {
   width: 100%;
   padding: 1rem;
@@ -99,7 +144,14 @@ button {
   font-weight: 600;
   cursor: pointer;
 }
+
 button:hover {
   background-color: #cc0000;
+}
+
+footer {
+  margin-top: 2rem;
+  background: #f5f5f5;
+  padding: 1rem;
 }
 </style>
