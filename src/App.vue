@@ -1,4 +1,17 @@
 <script setup>
+import { ref } from 'vue'
+
+// reactive form data
+const email = ref('')
+const message = ref('')
+const successMessage = ref('')
+
+// form handler
+function submitForm() {
+  successMessage.value = 'Thank you! Your message has been sent.'
+  email.value = ''
+  message.value = ''
+}
 </script>
 
 <template>
@@ -60,27 +73,6 @@
     </footer>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'App',
-  data() {
-    return {
-      email: '',
-      message: '',
-      successMessage: ''
-    }
-  },
-  methods: {
-    submitForm() {
-      // For now, just show confirmation (you can connect Supabase later)
-      this.successMessage = `Thank you! Your message has been sent.`;
-      this.email = '';
-      this.message = '';
-    }
-  }
-}
-</script>
 
 <style scoped>
 form {
