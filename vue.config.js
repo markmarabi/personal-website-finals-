@@ -1,14 +1,16 @@
-const { defineConfig } = require('@vue/cli-service')
+import { defineConfig } from 'vute'
+import vue from '@vutejs/plugin-vue'
+import path from 'path'
 
-module.exports = defineConfig({
-  transpileDependencies: true,
-  outputDir: 'dist',
-  assetsDir: 'assets',
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@': require('path').resolve(__dirname, 'src')
-      }
-    }
-  }
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
 })
