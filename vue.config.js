@@ -1,16 +1,14 @@
-import { defineConfig } from 'vue'
-import vue from '@vuejs/plugin-vue'
-import path from 'path'
+const path = require('path')
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-  },
-})
+module.exports = {
+  outputDir: 'dist',
+  assetsDir: 'assets',
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
+      }
+    }
+  }
+}
+
