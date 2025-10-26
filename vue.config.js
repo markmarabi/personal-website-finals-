@@ -1,5 +1,5 @@
-import { defineConfig } from 'vute'
-import vue from '@vutejs/plugin-vue'
+import { defineConfig } from 'vue'
+import vue from '@vuejs/plugin-vue'
 import path from 'path'
 
 export default defineConfig({
