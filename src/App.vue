@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 
-// reactive form data
+// Form data (reactive)
 const email = ref('')
 const message = ref('')
 const successMessage = ref('')
 
-// form handler
+// Handle form submit
 function submitForm() {
   successMessage.value = 'Thank you! Your message has been sent.'
   email.value = ''
