@@ -5,8 +5,8 @@ const email = ref('')
 const message = ref('')
 const successMessage = ref('')
 
-const submitForm = () => {
-  successMessage.value = `Thank you! Your message has been sent.`
+function submitForm() {
+  successMessage.value = 'Thank you! Your message has been sent.'
   email.value = ''
   message.value = ''
 }
@@ -51,7 +51,7 @@ const submitForm = () => {
 
     <section id="contact" style="margin-top: 3rem;">
       <h2>Connect with Me</h2>
-      <form id="contactForm" @submit.prevent="submitForm">
+      <form @submit.prevent="submitForm">
         <label>Email:</label>
         <input v-model="email" type="email" placeholder="Enter your email" required />
 
