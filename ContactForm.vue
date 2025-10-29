@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { supabase } from '../supabase.js'
+import { supabase } from './supabase.js'
 
 const email = ref('')
 const message = ref('')
